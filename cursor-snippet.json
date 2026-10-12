@@ -1,0 +1,17 @@
+{
+  "_comment": "MAXIMUS — Cursor IDE MCP Configuration",
+  "_instructions": [
+    "1. Start MAXIMUS: ./start.sh",
+    "2. Get your API key from http://localhost:31337 → Settings → API Keys",
+    "3. Replace <YOUR_API_KEY> with your actual key",
+    "4. Add to Cursor: Settings → MCP → Add Server"
+  ],
+  "mcpServers": {
+    "maximus": {
+      "url": "http://localhost:8000/mcp",
+      "headers": {
+        "Authorization": "Bearer <YOUR_API_KEY>"
+      }
+    }
+  }
+}

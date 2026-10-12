@@ -1,0 +1,62 @@
+{
+  "_comment": "MAXIMUS — Claude Desktop MCP Configuration",
+  "_instructions": [
+    "1. Start MAXIMUS: ./start.sh (from WSL Ubuntu terminal)",
+    "2. Login at http://localhost:31337 and get your API key from Settings → API Keys",
+    "3. Replace <YOUR_API_KEY> below with your actual key",
+    "4. Copy the chosen option into %APPDATA%\\Claude\\claude_desktop_config.json",
+    "5. Restart Claude Desktop — 'maximus' will appear in the tools panel",
+    "",
+    "Option A (HTTP, recommended for Claude Desktop v0.9+):",
+    "Option B (WSL stdio, for all Claude Desktop versions) — see below",
+    "Option C (mcp-remote bridge, SSE fallback) — see below"
+  ],
+
+  "_OPTION_A_HTTP_recommended": {
+    "mcpServers": {
+      "maximus": {
+        "url": "http://localhost:8000/mcp",
+        "headers": {
+          "Authorization": "Bearer <YOUR_API_KEY>"
+        }
+      }
+    }
+  },
+
+  "_OPTION_B_WSL_stdio": {
+    "mcpServers": {
+      "maximus": {
+        "command": "wsl",
+        "args": [
+          "-d", "Ubuntu",
+          "-e", "bash", "-c",
+          "BACKEND_API_URL=http://localhost:8000/api AIDA_TOKEN=<YOUR_API_KEY> DATABASE_URL=postgresql://pentraai:pentraai@localhost:5432/pentraai_assessments PYTHONPATH=/mnt/c/Users/shivraj3.patil/Downloads/ai_driven_Autonomus_pentes/AIDA/backend /mnt/c/Users/shivraj3.patil/Downloads/ai_driven_Autonomus_pentes/AIDA/.venv/bin/python /mnt/c/Users/shivraj3.patil/Downloads/ai_driven_Autonomus_pentes/AIDA/backend/mcp/aida_mcp_server.py 2>/dev/null"
+        ]
+      }
+    }
+  },
+
+  "_OPTION_C_mcp_remote_SSE": {
+    "mcpServers": {
+      "maximus": {
+        "command": "wsl",
+        "args": [
+          "-d", "Ubuntu",
+          "-e", "bash", "-c",
+          "npx -y mcp-remote http://localhost:8000/mcp --header 'Authorization: Bearer <YOUR_API_KEY>'"
+        ]
+      }
+    }
+  },
+
+  "_NOTE": "Copy ONLY the mcpServers block from your chosen option into claude_desktop_config.json. Remove this _comment and _instructions block.",
+
+  "mcpServers": {
+    "maximus": {
+      "url": "http://localhost:8000/mcp",
+      "headers": {
+        "Authorization": "Bearer <YOUR_API_KEY>"
+      }
+    }
+  }
+}
