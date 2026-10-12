@@ -1,0 +1,6 @@
+# node_modules is reinstalled inside the image; copying the host's would shadow
+# it (and bloat the context). dist is a build artifact.
+node_modules/
+dist/
+.DS_Store
+*.log
